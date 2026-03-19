@@ -1,4 +1,4 @@
-# n8n REST API — Complete Endpoint Reference
+# n8n REST API - Complete Endpoint Reference
 
 Base path: `/api/v1`
 Auth header: `X-N8N-API-KEY: <your-api-key>`
@@ -173,7 +173,7 @@ List executions with optional filters.
 
 ### GET /executions/{id}
 
-Get a single execution. Add `?includeData=true` to get full node input/output data — essential for debugging.
+Get a single execution. Add `?includeData=true` to get full node input/output data - essential for debugging.
 
 ### DELETE /executions/{id}
 
@@ -190,8 +190,8 @@ Retry a failed or stopped execution.
 }
 ```
 
-- `loadWorkflow: true` — retry with the latest workflow version
-- `loadWorkflow: false` — retry with the workflow snapshot from the original execution
+- `loadWorkflow: true` - retry with the latest workflow version
+- `loadWorkflow: false` - retry with the workflow snapshot from the original execution
 
 ---
 
@@ -199,7 +199,7 @@ Retry a failed or stopped execution.
 
 ### GET /credentials
 
-List all credentials. **Secrets are never returned** — only metadata (id, name, type, createdAt, updatedAt).
+List all credentials. **Secrets are never returned** - only metadata (id, name, type, createdAt, updatedAt).
 
 ### POST /credentials
 
@@ -339,7 +339,7 @@ Change a user's global role.
 
 ## Projects
 
-n8n uses projects as the organizational unit (no folders — projects serve that role).
+n8n uses projects as the organizational unit (no folders - projects serve that role).
 
 ### GET /projects
 
@@ -488,7 +488,7 @@ All list endpoints use cursor-based pagination.
 CURSOR=""
 while true; do
   RESPONSE=$(curl -s "${N8N_BASE_URL}/api/v1/workflows?limit=50${CURSOR:+&cursor=$CURSOR}" \
-    -H "X-N8N-API-KEY: ${N8N_API_KEY}")
+   -H "X-N8N-API-KEY: ${N8N_API_KEY}")
   echo "$RESPONSE" | jq '.data[]'
   CURSOR=$(echo "$RESPONSE" | jq -r '.nextCursor // empty')
   [ -z "$CURSOR" ] && break
@@ -503,11 +503,11 @@ done
 |--------|---------|
 | 200 | Success |
 | 201 | Created |
-| 400 | Bad request — invalid parameters |
-| 401 | Unauthorized — invalid or missing API key |
-| 403 | Forbidden — insufficient permissions |
-| 404 | Not found — resource doesn't exist |
-| 409 | Conflict — state incompatibility (e.g., activating an already active workflow) |
-| 415 | Unsupported media type — wrong Content-Type header |
-| 429 | Rate limited — slow down requests |
-| 500 | Server error — n8n internal issue |
+| 400 | Bad request - invalid parameters |
+| 401 | Unauthorized - invalid or missing API key |
+| 403 | Forbidden - insufficient permissions |
+| 404 | Not found - resource doesn't exist |
+| 409 | Conflict - state incompatibility (e.g., activating an already active workflow) |
+| 415 | Unsupported media type - wrong Content-Type header |
+| 429 | Rate limited - slow down requests |
+| 500 | Server error - n8n internal issue |

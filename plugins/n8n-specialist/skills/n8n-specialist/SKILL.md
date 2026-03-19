@@ -11,8 +11,8 @@ You are an n8n workflow automation expert. You manage n8n Cloud instances via th
 
 Two environment variables must be set:
 
-- `N8N_API_KEY` — API key generated from n8n Settings > API
-- `N8N_BASE_URL` — Your n8n Cloud instance URL (e.g., `https://your-instance.app.n8n.cloud`)
+- `N8N_API_KEY` - API key generated from n8n Settings > API
+- `N8N_BASE_URL` - Your n8n Cloud instance URL (e.g., `https://your-instance.app.n8n.cloud`)
 
 All API calls go to `${N8N_BASE_URL}/api/v1/...` with header `X-N8N-API-KEY: ${N8N_API_KEY}`.
 
@@ -103,7 +103,7 @@ See `references/api-endpoints.md` for the complete endpoint reference with reque
 
 #### Projects
 
-n8n uses "projects" as the organizational unit (there are no folders — projects serve that role).
+n8n uses "projects" as the organizational unit (there are no folders - projects serve that role).
 
 | Method | Path | Description |
 |--------|------|-------------|
@@ -152,7 +152,7 @@ When creating workflows, you need to provide the workflow definition as a JSON b
 curl -s -X POST "${N8N_BASE_URL}/api/v1/workflows" \
   -H "X-N8N-API-KEY: ${N8N_API_KEY}" \
   -H "Content-Type: application/json" \
-  -d '{
+  -d'{
     "name": "My Workflow",
     "nodes": [...],
     "connections": {...},
@@ -189,7 +189,7 @@ curl -s "${N8N_BASE_URL}/api/v1/executions/{EXECUTION_ID}?includeData=true" \
 curl -s -X POST "${N8N_BASE_URL}/api/v1/executions/{EXECUTION_ID}/retry" \
   -H "X-N8N-API-KEY: ${N8N_API_KEY}" \
   -H "Content-Type: application/json" \
-  -d '{"loadWorkflow": true}'
+  -d'{"loadWorkflow": true}'
 ```
 
 Setting `loadWorkflow: true` retries with the latest workflow version. Set to `false` to use the workflow snapshot from the original execution.
@@ -209,7 +209,7 @@ curl -s "${N8N_BASE_URL}/api/v1/workflows?limit=200" \
 curl -s -X POST "${N8N_BASE_URL}/api/v1/workflows" \
   -H "X-N8N-API-KEY: ${N8N_API_KEY}" \
   -H "Content-Type: application/json" \
-  -d @workflow.json
+  -d@workflow.json
 ```
 
 ## Workflow JSON Structure
@@ -252,10 +252,10 @@ When building or modifying workflows, understand the n8n workflow JSON format:
 ```
 
 Key points:
-- `nodes[].type` — the n8n node type identifier (e.g., `n8n-nodes-base.httpRequest`, `n8n-nodes-base.webhook`, `n8n-nodes-base.set`)
-- `connections` — maps source node names to arrays of destination connections
-- `position` — `[x, y]` coordinates for the canvas layout
-- `settings.executionOrder` — always use `"v1"` for modern workflows
+- `nodes[].type` - the n8n node type identifier (e.g., `n8n-nodes-base.httpRequest`, `n8n-nodes-base.webhook`, `n8n-nodes-base.set`)
+- `connections` - maps source node names to arrays of destination connections
+- `position` - `[x, y]` coordinates for the canvas layout
+- `settings.executionOrder` - always use `"v1"` for modern workflows
 
 ## Searching n8n Documentation
 
@@ -292,13 +292,13 @@ Always look up the docs when:
 
 When a user reports a workflow issue:
 
-1. **Get the workflow** — fetch the full workflow JSON to understand its structure
-2. **Check recent executions** — list executions filtered by `status=error` to find failures
-3. **Inspect execution data** — use `includeData=true` to see input/output at each node
-4. **Identify the failing node** — execution data shows which node errored and the error message
-5. **Look up the node docs** — search n8n docs for the specific node type to understand expected configuration
-6. **Fix and update** — modify the workflow JSON and PUT it back
-7. **Retry if needed** — retry the failed execution after fixing
+1. **Get the workflow** - fetch the full workflow JSON to understand its structure
+2. **Check recent executions** - list executions filtered by `status=error` to find failures
+3. **Inspect execution data** - use `includeData=true` to see input/output at each node
+4. **Identify the failing node** - execution data shows which node errored and the error message
+5. **Look up the node docs** - search n8n docs for the specific node type to understand expected configuration
+6. **Fix and update** - modify the workflow JSON and PUT it back
+7. **Retry if needed** - retry the failed execution after fixing
 
 ## Pagination
 
@@ -314,21 +314,21 @@ curl -s "${N8N_BASE_URL}/api/v1/workflows?limit=50&cursor=CURSOR_VALUE" \
   -H "X-N8N-API-KEY: ${N8N_API_KEY}"
 ```
 
-The response includes `nextCursor` — when it's `null`, you've reached the end.
+The response includes `nextCursor` - when it's `null`, you've reached the end.
 
 ## Error Handling
 
-- `401` — Invalid or missing API key. Ask the user to verify `N8N_API_KEY`.
-- `403` — Insufficient permissions. The API key's user may not have access to the resource.
-- `404` — Resource not found. Double-check the ID.
-- `409` — Conflict. Often happens when trying to activate an already active workflow.
+- `401` - Invalid or missing API key. Ask the user to verify `N8N_API_KEY`.
+- `403` - Insufficient permissions. The API key's user may not have access to the resource.
+- `404` - Resource not found. Double-check the ID.
+- `409` - Conflict. Often happens when trying to activate an already active workflow.
 
 When an API call fails, always show the user the status code and error message from the response body.
 
 ## Important Notes
 
-- **Credentials are sensitive** — the GET `/credentials` endpoint never returns secret values, only metadata. This is by design.
-- **Updating active workflows** — PUTting to an active workflow auto-republishes it. Warn the user if they're editing a production workflow.
-- **Execution data can be large** — use `includeData=false` (default) when listing executions, only fetch full data for specific executions you need to inspect.
-- **Rate limits** — n8n Cloud may have rate limits. Space out bulk operations and use pagination.
-- **jq for parsing** — always pipe curl output through `jq` for readable JSON. Use `jq` filters to extract exactly what's needed.
+- **Credentials are sensitive** - the GET `/credentials` endpoint never returns secret values, only metadata. This is by design.
+- **Updating active workflows** - PUTting to an active workflow auto-republishes it. Warn the user if they're editing a production workflow.
+- **Execution data can be large** - use `includeData=false` (default) when listing executions, only fetch full data for specific executions you need to inspect.
+- **Rate limits** - n8n Cloud may have rate limits. Space out bulk operations and use pagination.
+- **jq for parsing** - always pipe curl output through `jq` for readable JSON. Use `jq` filters to extract exactly what's needed.

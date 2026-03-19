@@ -1,0 +1,13 @@
+{
+  "name": "n8n-specialist-marketplace",
+  "owner": {
+    "name": "Fabio Franco"
+  },
+  "plugins": [
+    {
+      "name": "n8n-specialist",
+      "description": "Manage n8n workflows, executions, credentials, tags, and variables via the n8n REST API",
+      "source": "./plugins/n8n-specialist"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
-# n8n Specialist Skill
+# n8n Specialist Plugin
 
-A Claude Code skill for managing n8n workflows, executions, credentials, tags, and variables via the n8n REST API.
+A Claude Code plugin for managing n8n workflows, executions, credentials, tags, and variables via the n8n REST API.
 
 ## Setup
 
@@ -28,25 +28,27 @@ source ~/.zshrc
 
 Or set them in your Claude Code project's `.env` file.
 
-### 3. Install the skill
+### 3. Install the plugin
 
-Copy this skill directory into your Claude Code skills path, or reference it from your `CLAUDE.md`:
+Add the marketplace and install the plugin:
 
-```markdown
-# Skills
-- /path/to/n8n-specialist
+```bash
+claude plugin marketplace add fabiofranco85/n8n-specialist
+claude plugin install n8n-specialist
 ```
+
+Then restart Claude Code for the plugin to take effect.
 
 ## What it does
 
-- **Workflow management** — create, update, activate, deactivate, delete, export, and import workflows
-- **Execution monitoring** — list, inspect, and retry workflow executions
-- **Credential management** — create, update, delete credentials (secrets are never exposed)
-- **Tag management** — organize workflows with tags
-- **Variable management** — manage environment variables in n8n
-- **User management** — list, create, and manage n8n users
-- **Debugging** — inspect failed executions, identify failing nodes, and fix workflows
-- **Documentation lookup** — searches n8n official docs when it needs info about nodes or configuration
+- **Workflow management** - create, update, activate, deactivate, delete, export, and import workflows
+- **Execution monitoring** - list, inspect, and retry workflow executions
+- **Credential management** - create, update, delete credentials (secrets are never exposed)
+- **Tag management** - organize workflows with tags
+- **Variable management** - manage environment variables in n8n
+- **User management** - list, create, and manage n8n users
+- **Debugging** - inspect failed executions, identify failing nodes, and fix workflows
+- **Documentation lookup** - searches n8n official docs when it needs info about nodes or configuration
 
 ## Example prompts
 
@@ -61,8 +63,16 @@ Copy this skill directory into your Claude Code skills path, or reference it fro
 
 ```
 n8n-specialist/
-├── SKILL.md              # Main skill instructions
-├── README.md             # This file
-└── references/
-    └── api-endpoints.md  # Complete API endpoint reference
+├── .claude-plugin/
+│   └── marketplace.json                        # Marketplace catalog
+├── plugins/
+│   └── n8n-specialist/
+│       ├── .claude-plugin/
+│       │   └── plugin.json                     # Plugin manifest
+│       └── skills/
+│           └── n8n-specialist/
+│               ├── SKILL.md                    # Main skill instructions
+│               └── references/
+│                   └── api-endpoints.md        # Complete API endpoint reference
+└── README.md                                   # This file
 ```
