@@ -1,0 +1,23 @@
+# Claude Code local settings
+.claude/settings.local.json
+
+# macOS
+.DS_Store
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Node (if dependencies are added later)
+node_modules/
+
+# Eval workspace outputs (generated, not source)
+n8n-specialist-workspace/
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

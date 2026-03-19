@@ -1,0 +1,35 @@
+{
+  "skill_name": "n8n-specialist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "List all my active n8n workflows",
+      "expected_output": "Should run a curl command against the n8n API with active=true filter, parse the JSON response with jq, and display workflow names and IDs in a readable format.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My workflow called 'Daily Report' keeps failing. Can you check what's wrong and fix it?",
+      "expected_output": "Should: 1) Search for the workflow by name to get its ID, 2) List recent failed executions for that workflow, 3) Inspect execution data with includeData=true to identify the failing node and error, 4) Look up docs if needed, 5) Propose or apply a fix via PUT, 6) Optionally retry the execution.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Create a workflow that triggers every day at 9am and sends a GET request to https://api.example.com/health, then posts the result to Slack",
+      "expected_output": "Should build a valid n8n workflow JSON with: 1) A Schedule Trigger node set to 9am daily, 2) An HTTP Request node doing GET to the health endpoint, 3) A Slack node posting the response. Should look up n8n docs for node configuration if unsure. Should POST the workflow via the API.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Export all my n8n workflows to a backup file",
+      "expected_output": "Should fetch all workflows using pagination (handling nextCursor), collect all workflow data, and save to a JSON file. Should handle the case where there are more than one page of results.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Show me the structure of my n8n instance — all projects and which workflows are in each one",
+      "expected_output": "Should: 1) List all projects via GET /projects, 2) For each project, list workflows filtered by projectId, 3) Present a clear hierarchical view showing projects and their workflows with status (active/inactive).",
+      "files": []
+    }
+  ]
+}

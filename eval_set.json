@@ -1,0 +1,82 @@
+[
+  {
+    "query": "hey can you check my n8n instance and tell me which workflows failed in the last 24 hours? i think the slack notification one is broken again",
+    "should_trigger": true
+  },
+  {
+    "query": "i need to create a new automation that watches a google sheet for changes and sends an email via sendgrid whenever a new row is added. can you build this in n8n for me?",
+    "should_trigger": true
+  },
+  {
+    "query": "export all workflows from my n8n cloud instance to a backup json file, i want to version control them in git",
+    "should_trigger": true
+  },
+  {
+    "query": "show me all the projects in my n8n setup and which workflows belong to each one, i'm trying to reorganize things",
+    "should_trigger": true
+  },
+  {
+    "query": "my automation pipeline keeps timing out on the http request step. the workflow id is V0BnxXtaIcWVaxJc, can you pull the execution logs and figure out what's going wrong?",
+    "should_trigger": true
+  },
+  {
+    "query": "i want to deactivate all workflows tagged 'staging' on my n8n instance, there's like 12 of them and i don't want to do it manually",
+    "should_trigger": true
+  },
+  {
+    "query": "can you set up a cron schedule on n8n that runs every monday at 8am and hits our internal health check endpoint then posts to our team channel on slack?",
+    "should_trigger": true
+  },
+  {
+    "query": "we need to add a new api credential in n8n for our stripe integration, the type is httpHeaderAuth. can you create it via the api?",
+    "should_trigger": true
+  },
+  {
+    "query": "list all the variables configured in my n8n instance, i think someone changed the API_ENDPOINT variable and it broke production",
+    "should_trigger": true
+  },
+  {
+    "query": "i need to transfer the 'Daily Report' workflow from the 'Clients' project to 'ZapSense' project in n8n",
+    "should_trigger": true
+  },
+  {
+    "query": "build me a github actions workflow that runs tests on every PR and deploys to vercel on merge to main",
+    "should_trigger": false
+  },
+  {
+    "query": "can you help me set up a zapier automation that connects my gmail to notion? i want new emails to create database entries",
+    "should_trigger": false
+  },
+  {
+    "query": "i need to write a python script that processes csv files and uploads them to s3, can you help?",
+    "should_trigger": false
+  },
+  {
+    "query": "set up a nextjs api route that accepts webhook payloads from stripe and updates our database",
+    "should_trigger": false
+  },
+  {
+    "query": "help me configure apache airflow DAGs for our data pipeline, we need to orchestrate spark jobs",
+    "should_trigger": false
+  },
+  {
+    "query": "can you create a make.com scenario that triggers when a new lead comes in from hubspot and adds it to our airtable?",
+    "should_trigger": false
+  },
+  {
+    "query": "write a terraform module that provisions an ECS cluster with auto-scaling and load balancing",
+    "should_trigger": false
+  },
+  {
+    "query": "i'm trying to set up temporal.io workflows for our order processing system, can you help with the workflow definition?",
+    "should_trigger": false
+  },
+  {
+    "query": "my kubernetes cronjob keeps failing with OOMKilled, can you help me debug the resource limits?",
+    "should_trigger": false
+  },
+  {
+    "query": "can you help me build a power automate flow that sends teams notifications when sharepoint files are updated?",
+    "should_trigger": false
+  }
+]
