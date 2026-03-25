@@ -1,6 +1,6 @@
 {
   "name": "n8n-specialist",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Manage n8n workflows, executions, credentials, tags, and variables via the n8n REST API",
   "author": {
     "name": "Fabio Franco"
