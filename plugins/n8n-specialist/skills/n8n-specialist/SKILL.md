@@ -257,36 +257,57 @@ Key points:
 - `position` - `[x, y]` coordinates for the canvas layout
 - `settings.executionOrder` - always use `"v1"` for modern workflows
 
-## Searching n8n Documentation
+## Node Configuration Lookup (MANDATORY)
 
-When you need to look up n8n node types, configuration options, or concepts, search the official docs:
+**Before creating, modifying, or debugging any workflow that involves specific nodes, you MUST look up the node's parameters and configuration from n8n documentation via Context7.**
 
-1. **Use WebSearch** with queries targeting `docs.n8n.io`:
-   ```
-   WebSearch: "n8n <node-type> node configuration site:docs.n8n.io"
-   ```
+This is a mandatory pre-flight step — never guess node parameters, type identifiers, or typeVersion values. Always verify against the docs first.
 
-2. **Use WebFetch** to read specific doc pages:
-   ```
-   WebFetch: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.<nodeName>/
-   ```
+### Context7 Lookup Procedure
 
-3. **Use Context7 MCP** if available:
-   ```
-   resolve-library-id: "n8n"
-   query-docs: <library-id>, "topic query"
-   ```
+Use these Context7 library IDs (already resolved — do NOT call `resolve-library-id`):
 
-Common doc patterns:
-- Node docs: `https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.<nodeName>/`
-- Trigger docs: `https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.<triggerName>/`
+| Library ID | Snippets | Best for |
+|-----------|----------|----------|
+| `/llmstxt/n8n_io_llms-full_txt` | 23K+ | Node parameters, options, UI configuration, trigger intervals |
+| `/context7/n8n_io` | 2.5K+ | Workflow JSON examples, real node configs with parameter shapes |
+| `/n8n-io/n8n-docs` | 1.1K+ | Node internals, custom node development, HTTP helpers |
+
+### Step-by-step lookup
+
+1. **Identify which nodes are needed** for the workflow task
+2. **Query Context7 for real workflow JSON examples first** — this is the most reliable source because it shows actual node parameter shapes as they appear in working workflows:
+   ```
+   query-docs: libraryId="/context7/n8n_io"
+               query="<NodeName> node JSON configuration workflow example"
+   ```
+3. **Then query for parameter documentation** to understand available options:
+   ```
+   query-docs: libraryId="/llmstxt/n8n_io_llms-full_txt"
+               query="<NodeName> node parameters configuration options"
+   ```
+4. **Cross-reference both sources** before writing node JSON. Context7 sometimes returns REST API documentation (describing API endpoints with `resource`/`operation` fields) instead of n8n node parameters. These are NOT the same thing — n8n node parameters are what goes in the `parameters` object of a workflow JSON node. When in doubt, trust the workflow JSON examples from `/context7/n8n_io` over API-style docs.
+5. **Use the verified docs** to construct correct node JSON with accurate:
+   - `type` identifier (e.g., `n8n-nodes-base.httpRequest`)
+   - `typeVersion` (use the latest documented version)
+   - `parameters` object with valid keys and values (from workflow JSON examples)
+   - `credentials` references if the node requires authentication
+
+### When to look up
+
+You MUST query Context7 when:
+- **Creating a workflow** — look up every node type before writing the JSON
+- **Modifying a workflow** — look up the specific node being changed
+- **Debugging a failing node** — look up expected parameters to compare against actual config
+- **User asks about a node** — look up its capabilities, parameters, and options
+- **You're unsure about any node property** — typeVersion, parameter names, option values
+
+### Fallback: Direct docs
+
+If Context7 doesn't return sufficient detail for a specific node, fall back to WebFetch:
+- Core nodes: `https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.<nodeName>/`
+- Trigger nodes: `https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.<triggerName>/`
 - App nodes: `https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.<appName>/`
-
-Always look up the docs when:
-- Building workflows with nodes you're not certain about
-- The user asks about a specific node's parameters or behavior
-- Debugging a workflow that uses unfamiliar nodes
-- You need the exact `type` identifier for a node
 
 ## Debugging Workflows
 

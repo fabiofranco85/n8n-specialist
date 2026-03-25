@@ -16,7 +16,7 @@
     {
       "id": 3,
       "prompt": "Create a workflow that triggers every day at 9am and sends a GET request to https://api.example.com/health, then posts the result to Slack",
-      "expected_output": "Should build a valid n8n workflow JSON with: 1) A Schedule Trigger node set to 9am daily, 2) An HTTP Request node doing GET to the health endpoint, 3) A Slack node posting the response. Should look up n8n docs for node configuration if unsure. Should POST the workflow via the API.",
+      "expected_output": "MUST query Context7 BEFORE building the workflow JSON. Should query '/llmstxt/n8n_io_llms-full_txt' for Schedule Trigger, HTTP Request, and Slack node parameters. Should build a valid workflow JSON with: 1) A Schedule Trigger node with correct typeVersion and parameters from docs, 2) An HTTP Request node with documented parameter structure, 3) A Slack node with correct parameters. Should POST the workflow via the API.",
       "files": []
     },
     {
@@ -29,6 +29,24 @@
       "id": 5,
       "prompt": "Show me the structure of my n8n instance — all projects and which workflows are in each one",
       "expected_output": "Should: 1) List all projects via GET /projects, 2) For each project, list workflows filtered by projectId, 3) Present a clear hierarchical view showing projects and their workflows with status (active/inactive).",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Create a workflow with an If node that checks if the incoming data has an 'amount' field greater than 1000, and routes to different Slack channels based on the result",
+      "expected_output": "MUST query Context7 BEFORE building the workflow. Should query '/llmstxt/n8n_io_llms-full_txt' or '/context7/n8n_io' for If node parameters (conditions structure, operators, combinator). Must produce correct If node JSON with: 1) Proper typeVersion (v2), 2) Correct conditions structure with leftValue expression, rightValue, operator object, 3) Proper connections mapping true/false outputs to different Slack nodes. Should NOT guess the If node parameter structure.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Build me an n8n workflow that uses a Webhook trigger to receive POST data, transforms it with a Code node, and stores results in a Postgres database",
+      "expected_output": "MUST query Context7 for Webhook trigger, Code node, and Postgres node parameters BEFORE writing JSON. Should look up: 1) Webhook node — httpMethod, path, responseMode parameters, 2) Code node — jsCode parameter structure and typeVersion, 3) Postgres node — operation, table, columns parameters. The resulting workflow JSON must use documented parameter names and values, not guessed ones. Should POST via API.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "What configuration options does the n8n HTTP Request node support? I want to understand all the authentication methods and retry options available",
+      "expected_output": "MUST query Context7 (preferably '/llmstxt/n8n_io_llms-full_txt') for HTTP Request node parameters and authentication options. Should present a comprehensive answer based on the docs covering: authentication types (none, predefined credential, generic credential, header auth, query auth, etc.), retry on fail options, timeout settings, pagination options, response format options. Must NOT fabricate options that don't exist in the docs.",
       "files": []
     }
   ]
